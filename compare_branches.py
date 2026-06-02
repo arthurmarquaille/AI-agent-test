@@ -17,9 +17,12 @@ def compare_git_branches(branch):
     
     if result_full_diff.returncode == 0 and result_full_diff.stdout:
         diff_output = result_full_diff.stdout
+        current_file = None
         for line in diff_output.split('\n'):
+            if line.startswith('+++'):
+                current_file = line.replace('+++', '').replace('b/', '').strip()
             if line.startswith('@@'):
-                print(f"\n{line}")
+                print(f"\n{line} - {current_file}")
             elif line.startswith('+') and not line.startswith('+++'):
                 print(line)
             elif line.startswith('-') and not line.startswith('---'):
