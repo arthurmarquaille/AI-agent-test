@@ -7,9 +7,11 @@ def compare_git_branches(branch):
     if result.stdout.strip() == '':
         print("No differences found between the branches.")
     else:
+        # Affiche seulement les modifications avec les numéros de lignes
         lines = result.stdout.split('\n')
         for line in lines:
             if line.startswith('@@') or line.startswith('+') or line.startswith('-'):
-                print(line)
+                if not line.startswith('+++') and not line.startswith('---'):
+                    print(line)
         
 compare_git_branches('modif_print')
