@@ -2,24 +2,13 @@ import subprocess
 import json
 
 def compare_git_branches(branch):
-    """Analyse les différences entre la branche main et la branche spécifiée"""
-    
-    # 1. Récupérer les fichiers modifiés
     command_files = f"git diff --name-status main {branch}"
     result_files = subprocess.run(command_files, shell=True, text=True, capture_output=True)
-    
     if result_files.stdout.strip() == '':
         print("No differences found between the branches.")
         return
-    
-    print(f"\n📊 ANALYSE DES MODIFICATIONS: main → {branch}\n")
-    print("=" * 70)
-    
-    # 2. Récupérer le diff détaillé
     command_diff = f"git diff main {branch}"
     result_diff = subprocess.run(command_diff, shell=True, text=True, capture_output=True)
-    
-    # 3. Parser les fichiers modifiés
     files_modified = {}
     for line in result_files.stdout.strip().split('\n'):
         if line:
