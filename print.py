@@ -1,2 +1,2 @@
 print("Hey !")
-print(f"2 + 2 = 4"
+print(f"2 + 2 = 4")
